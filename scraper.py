@@ -6,18 +6,22 @@ page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
 
-# anchors= soup.find_all("a")
-# print(results)
-
-# print(anchors)
 
 def get_citations_needed_count (URL): 
   page = requests.get(URL)
   soup = BeautifulSoup(page.content, "html.parser")
   list_items = soup.find_all("a", attrs={"title": "Wikipedia:Citation needed"})
-  print("list_items length: ", len(list_items))
-  for link in list_items:  
-    return link
-   
-print(get_citations_needed_count(URL))
+  print("citations needed: ", len(list_items))
+
+def get_citations_needed_report(URL): 
+  page = requests.get(URL)
+  soup = BeautifulSoup(page.content, "html.parser")
+  list_items = soup.find_all("a", attrs={"title": "Wikipedia:Citation needed"})
+  for item in list_items: 
+    print(item.parent.parent.parent.text)
+ 
+get_citations_needed_report(URL)
+
+
+get_citations_needed_count(URL)
 
